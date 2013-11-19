@@ -1,7 +1,18 @@
 language: node_js
 node_js:
-  - '0.8'
-  - '0.10'
+- '0.8'
 before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
+- npm install -g bower grunt-cli
+- bower install
+env:
+  global:
+    secure: aPZ8BsfP3OgVF4MV7BK9oTwGkAtsIrb52bYL9GyAraEBlCUopfGxhG0061zvHWmZbUWarHjer7fdVKYAwpSAbZW5hOwByJZ/mjAHyOLs/uA2wZ+AGA5xaY7/ckzQKPBb5fQQNuAoH6RWbB2rqzOHwblMb5oPtDnqHlK3lVMXMZE=
+script:
+- bower install
+- npm test
+after_success:
+- git config user.email "mayorga.julian@gmail.com"
+- git config user.name "ElJuli"
+- grunt build
+- grunt gh-pages-clean
+- grunt gh-pages

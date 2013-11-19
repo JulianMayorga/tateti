@@ -19,7 +19,13 @@ module.exports = function (grunt) {
     },
     'gh-pages': {
       options: {
-        base: 'dist'
+        base: 'dist',
+        repo: 'https://' + process.env.GH_TOKEN + '@github.com/JulianMayorga/tateti.git',
+        user: {
+          name: 'ElJuli',
+          email: 'mayorga.julian@gmail.com'
+        },
+        silent: true
       },
       src: ['**']
     },
