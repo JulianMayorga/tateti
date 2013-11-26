@@ -13,27 +13,23 @@ describe('Directive: tttGrilla', function () {
   }));
 
   it('deberia tener 9 casilleros vacios', inject(function ($compile) {
+    scope.letra = function (indice) {
+      return '';
+    };
     element = angular.element('<ttt-grilla></ttt-grilla>');
     element = $compile(element)(scope);
+    scope.$digest();
     expect(element.find('td').length).toBe(9);
+    expect(element.find('td').eq(0).text()).toBe('');
   }));
 
-  it('deberia tener Xs y Os invisibles', inject(function ($compile) {
+  it('deberia poner una letra cuando se cliquee un casillero', inject(function ($compile) {
+    scope.ponerLetra = jasmine.createSpy('ponerLetra');
     element = angular.element('<ttt-grilla></ttt-grilla>');
     element = $compile(element)(scope);
-    expect(element.find('div').css('visibility')).toBe('hidden');
+    scope.$digest();
+    element.find('td').eq(0).triggerHandler('click');
+    expect(scope.ponerLetra).toHaveBeenCalled();
   }));
-
-  describe('cuando se cliquea un casillero por primera vez', function () {
-    it('deberia marcar una X', inject(function ($compile) {
-      element = angular.element('<ttt-grilla></ttt-grilla>');
-      element = $compile(element)(scope);
-      var primer_casillero = element.find('div').eq(0);
-      element.find('td').eq(0).triggerHandler('click');
-      expect(primer_casillero.text()).toBe('X');
-      expect(primer_casillero.css('visibility')).toBe('visible');
-    }));
-
-  });
 
 });
