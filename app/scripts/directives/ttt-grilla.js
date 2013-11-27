@@ -4,7 +4,7 @@ angular.module('tatetiApp')
   .directive('tttGrilla', function () {
     return {
       template:
-        '<table class="table table-bordered">' +
+        '<table id="grilla" class="table table-bordered">' +
           '<tr>' +
             '<td ng-click="ponerLetra(0, 0)" class="casillero">{{ letra(0, 0) }}</td>' +
             '<td ng-click="ponerLetra(0, 1)" class="casillero">{{ letra(0, 1) }}</td>' +

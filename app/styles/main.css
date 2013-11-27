@@ -23,3 +23,9 @@ html, body {
   width: 33%;
   height: 33%;
 }
+
+#fin-del-juego {
+  height: 100%;
+  font-size: xx-large;
+  text-align: center;
+}

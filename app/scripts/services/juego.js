@@ -7,7 +7,7 @@ angular.module('tatetiApp')
 
     var juego = this;
 
-    this.turno = 'jugador1';
+    this.turno = 'jugador 1';
 
     this.grilla = {
       casillero: function (fila, columna) {
@@ -21,13 +21,21 @@ angular.module('tatetiApp')
 
     this.ganador = null;
 
+    this.estado = null;
+
+    this.reiniciar = function () {
+      contenido_grilla = [['','',''], ['','',''], ['','','']];
+      juego.estado = 'en-progreso';
+    };
+
     this.jugador1 = {
+      nombre: 'jugador 1',
       _letra: 'X',
       ponerX: function (fila, columna) {
-        if (juego.turno === 'jugador1') {
+        if (juego.turno === juego.jugador1.nombre) {
           ponerLetra(this._letra, fila, columna);
           juego.ganador = determinarGanador(this);
-          juego.turno = 'jugador2';
+          juego.turno = juego.jugador2.nombre;
         } else {
           throw new Error();
         }
@@ -35,12 +43,13 @@ angular.module('tatetiApp')
     };
 
     this.jugador2 = {
+      nombre: 'jugador 2',
       _letra: 'O',
       ponerO: function (fila, columna) {
-        if (juego.turno === 'jugador2') {
+        if (juego.turno === juego.jugador2.nombre) {
           ponerLetra(this._letra, fila, columna);
           juego.ganador = determinarGanador(this);
-          juego.turno = 'jugador1';
+          juego.turno = juego.jugador1.nombre;
         } else {
           throw new Error();
         }
@@ -48,7 +57,7 @@ angular.module('tatetiApp')
     };
 
     function ponerLetra(letra, fila, columna) {
-      if (contenido_grilla[fila][columna] === '') {
+      if (contenido_grilla[fila][columna] === '' && juego.estado !== 'terminado') {
         contenido_grilla[fila][columna] = letra;
       } else {
         throw new Error();
@@ -63,8 +72,12 @@ angular.module('tatetiApp')
 
       if (ganoJugador1) {
         ganador = juego.jugador1;
+        juego.estado = 'terminado';
       } else if (ganoJugador2) {
         ganador = juego.jugador2;
+        juego.estado = 'terminado';
+      } else if(_casilleroLleno()) {
+        juego.estado = 'terminado';
       }
 
       return ganador;
@@ -127,6 +140,30 @@ angular.module('tatetiApp')
       }
 
       return resultado;
+    };
+
+    function _casilleroLleno() {
+      if (contenido_grilla.every(_filaLlena)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    function _filaLlena(fila) {
+      if (fila.every(_tieneLetra)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    function _tieneLetra(casillero) {
+      if (casillero === 'X' || casillero === 'O') {
+        return true;
+      } else {
+        return false;
+      }
     };
 
   });

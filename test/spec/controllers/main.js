@@ -27,13 +27,13 @@ describe('Controller: MainCtrl', function () {
   }));
 
   it('deberia dejar poner letra a un jugador a la vez', function () {
-    Juego.turno = 'jugador1';
+    Juego.turno = 'jugador 1';
     scope.ponerLetra(0, 0);
     expect(Juego.jugador1.ponerX).toHaveBeenCalled();
-    Juego.turno = 'jugador2';
+    Juego.turno = 'jugador 2';
     scope.ponerLetra(0, 1);
     expect(Juego.jugador2.ponerO).toHaveBeenCalled();
-    Juego.turno = 'jugador1';
+    Juego.turno = 'jugador 1';
     scope.ponerLetra(0, 2);
     expect(Juego.jugador1.ponerX).toHaveBeenCalled();
   });
@@ -46,5 +46,13 @@ describe('Controller: MainCtrl', function () {
     });
     expect(scope.letra(0,2)).toBe('X');
   });
+
+  it('deberia ir a la pantalla de juego terminado cuando finalice el juego', inject(function ($location) {
+    $location.path('/');
+    expect($location.path()).toEqual('/');
+    Juego.estado = 'terminado';
+    scope.ponerLetra(0, 0);
+    expect($location.path()).toEqual('/fin-del-juego');
+  }));
 
 });
