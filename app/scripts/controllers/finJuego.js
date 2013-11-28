@@ -6,11 +6,9 @@ angular.module('tatetiApp')
       Juego.reiniciar();
     };
 
-    $scope.$watch('ganador', function () {
-      if (Juego.ganador !== null) {
-        $scope.ganador = Juego.ganador.nombre;
-      }
-    });
+    if (Juego.ganador !== null) {
+      $scope.ganador = Juego.ganador.nombre;
+    }
 
     $scope.$watch(
       function () { return Juego.estado; },

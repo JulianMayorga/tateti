@@ -13,6 +13,7 @@ describe('Controller: FinjuegoCtrl', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     Juego = jasmine.createSpyObj('Juego', ['reiniciar']);
+    Juego.ganador = {nombre : 'jugador 1'};
     FinjuegoCtrl = $controller('FinjuegoCtrl', {
       $scope: scope,
       Juego: Juego
@@ -25,14 +26,12 @@ describe('Controller: FinjuegoCtrl', function () {
   });
 
   it('deberia contener al ganador', function () {
-    Juego.ganador = {nombre : 'jugador 1'};
     scope.$digest();
     expect(scope.ganador).toBe('jugador 1');
   });
 
   it('deberia redireccionar a la pagina del juego si este aun no termino', inject(function ($location) {
     $location.path('/fin-del-juego');
-    Juego.ganador = {nombre : 'jugador 1'};
     Juego.estado = 'en-progreso';
     scope.$apply();
     expect($location.path()).toEqual('/');

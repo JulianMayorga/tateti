@@ -90,7 +90,22 @@ describe('tateti', function () {
     ponerLetraMedioDerecha();
     ponerLetraAbajoDerecha();
     expect(muestraFinDelJuego()).toBe(1);
-    expect(ganador()).toBe('jugador 1');
+    expect(resultado()).toBe('Ganador jugador 1');
+    expect(urlActual()).toBe(urlFinDelJuego);
+  });
+
+  it('deberia mostrar un empate al empatar el juego', function () {
+    ponerLetraArribaIzquierda();
+    ponerLetraArribaMedio();
+    ponerLetraArribaDerecha();
+    ponerLetraAbajoIzquierda();
+    ponerLetraAbajoMedio();
+    ponerLetraAbajoDerecha();
+    ponerLetraMedioIzquierda();
+    ponerLetraMedioMedio();
+    ponerLetraMedioDerecha();
+    expect(muestraFinDelJuego()).toBe(1);
+    expect(resultado()).toBe('Empate');
     expect(urlActual()).toBe(urlFinDelJuego);
   });
 
@@ -196,8 +211,8 @@ describe('tateti', function () {
     expect(letraCasilleros()).toBe('');
   };
 
-  var ganador = function () {
-    return element('#ganador').text();
+  var resultado = function () {
+    return element('#resultado').text();
   };
 
   var irAFinDelJuego = function () {
